@@ -333,23 +333,6 @@
       document.getElementById(tab.getAttribute('data-target')).classList.add('active');
     });
   });
-
-  // form handling — front-end only for now
-  // Wire these up to Formspree, Netlify Forms, or your own backend before launch.
-  document.getElementById('consumer-form').addEventListener('submit', function(e){
-    e.preventDefault();
-    const status = document.getElementById('consumer-status');
-    status.textContent = "Thanks — we've got your message and will follow up soon.";
-    status.classList.add('success');
-    this.reset();
-  });
-  document.getElementById('business-form').addEventListener('submit', function(e){
-    e.preventDefault();
-    const status = document.getElementById('business-status');
-    status.textContent = "Thanks — we've got your quote request and will follow up soon.";
-    status.classList.add('success');
-    this.reset();
-  });
 </script>
 
 </body>
