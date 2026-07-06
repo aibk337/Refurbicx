@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact — Refurbicx</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Aldrich&family=Audiowide&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --black: #0A0E0B;
+    --panel: #141C16;
+    --panel-2: #1B2620;
+    --paper: #F5F2EA;
+    --paper-dim: #EAE6DA;
+    --sage: #7A8471;
+    --sage-dim: #4F564A;
+    --signal: #C8DC3C;
+    --neon: #39FF6A;
+    --copper: #B85C38;
+    --circuit-blue: #4FC3D9;
+    --line: rgba(245,242,234,0.14);
+    --line-strong: rgba(245,242,234,0.28);
+
+    --display: 'Aldrich', sans-serif;
+    --logo-font: 'Audiowide', sans-serif;
+    --body: 'Inter', sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{background:var(--black); color:var(--paper); font-family:var(--body); overflow-x:hidden;}
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; scroll-behavior:auto !important;}
+  }
+  a{color:inherit; text-decoration:none;}
+  ::selection{background:var(--neon); color:var(--black);}
+  :focus-visible{outline:2px solid var(--neon); outline-offset:3px;}
+  .wrap{max-width:1280px; margin:0 auto; padding:0 32px;}
+
+  nav{
+    position:fixed; top:0; left:0; right:0; z-index:100;
+    background:rgba(10,14,11,0.85); backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+    transition:transform 0.35s ease;
+  }
+  nav.nav-hidden{transform:translateY(-100%);}
+  .nav-inner{display:flex; align-items:center; justify-content:space-between; padding:18px 32px; max-width:1280px; margin:0 auto;}
+  .logo{font-family:var(--logo-font); font-weight:400; font-size:1.05rem; display:flex; align-items:center; gap:10px; color:var(--neon); text-shadow:0 0 14px rgba(57,255,106,0.35);}
+  .logo-mark{width:9px; height:9px; background:var(--neon); border-radius:1px; box-shadow:0 0 10px rgba(57,255,106,0.7);}
+  .nav-links{display:flex; gap:36px; font-size:0.88rem; color:var(--sage);}
+  .nav-links a{transition:color 0.2s ease; position:relative; padding-bottom:4px;}
+  .nav-links a:hover{color:var(--paper);}
+  .nav-links a::after{content:''; position:absolute; left:0; bottom:0; width:0; height:1px; background:var(--neon); transition:width 0.25s ease;}
+  .nav-links a:hover::after{width:100%;}
+  .nav-cta{font-family:var(--mono); font-size:0.76rem; border:1px solid var(--line-strong); padding:9px 16px; border-radius:3px; transition:all 0.2s ease;}
+  .nav-cta:hover{border-color:var(--neon); background:rgba(57,255,106,0.08); color:var(--neon);}
+
+  .page-header{padding:180px 0 80px; border-bottom:1px solid var(--line);}
+  .page-header h1{font-size:clamp(2rem, 3.8vw, 3rem); max-width:760px; line-height:1.25;}
+  .page-header .hero-sub{margin-top:24px;}
+  .breadcrumb{font-family:var(--mono); font-size:0.74rem; color:var(--sage); margin-bottom:24px; display:flex; align-items:center; gap:8px;}
+  .breadcrumb a:hover{color:var(--neon);}
+  .eyebrow{font-family:var(--mono); font-size:0.78rem; color:var(--signal); letter-spacing:0.08em; text-transform:uppercase; display:flex; align-items:center; gap:10px; margin-bottom:28px;}
+  .eyebrow::before{content:''; width:24px; height:1px; background:var(--signal);}
+  h1{font-family:var(--display); font-weight:400; letter-spacing:0.01em;}
+  .hero-sub{font-size:1.08rem; line-height:1.65; color:var(--sage); max-width:520px;}
+
+  section{position:relative;}
+  .section-pad{padding:120px 0;}
+  .section-label{font-family:var(--mono); font-size:0.75rem; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:18px;}
+  .reveal{opacity:0; transform:translateY(24px); transition:opacity 0.7s ease, transform 0.7s ease;}
+  .reveal.visible{opacity:1; transform:translateY(0);}
+
+  /* ---------- TOGGLE TABS ---------- */
+  .contact-tabs{display:flex; gap:12px; margin-bottom:56px;}
+  .contact-tab{
+    font-family:var(--mono); font-size:0.85rem; padding:12px 24px;
+    border:1px solid var(--line-strong); border-radius:30px;
+    cursor:pointer; background:transparent; color:var(--sage);
+    transition:all 0.2s ease;
+  }
+  .contact-tab.active{border-color:var(--neon); color:var(--neon); background:rgba(57,255,106,0.08);}
+
+  .contact-panel{display:none;}
+  .contact-panel.active{display:block;}
+
+  .contact-grid{display:grid; grid-template-columns:1fr 1fr; gap:80px;}
+  .contact-form{display:flex; flex-direction:column; gap:22px;}
+  .form-group{display:flex; flex-direction:column; gap:8px;}
+  .form-group label{font-family:var(--mono); font-size:0.74rem; color:var(--sage); letter-spacing:0.04em; text-transform:uppercase;}
+  .form-group input, .form-group select, .form-group textarea{
+    background:var(--panel-2); border:1px solid var(--line); border-radius:3px;
+    padding:13px 16px; color:var(--paper); font-family:var(--body); font-size:0.95rem;
+    transition:border-color 0.2s ease;
+  }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus{border-color:var(--neon); outline:none;}
+  .form-group textarea{resize:vertical; min-height:120px;}
+  .submit-btn{
+    background:var(--neon); color:var(--black); font-family:var(--body); font-weight:600;
+    font-size:0.95rem; padding:15px 28px; border-radius:3px; border:none; cursor:pointer;
+    transition:transform 0.2s ease, box-shadow 0.2s ease; width:fit-content;
+  }
+  .submit-btn:hover{transform:translateY(-2px); box-shadow:0 8px 24px rgba(57,255,106,0.25);}
+  .submit-btn.business{background:var(--copper);}
+  .submit-btn.business:hover{box-shadow:0 8px 24px rgba(184,92,56,0.3);}
+
+  .contact-info-block{padding-bottom:32px; border-bottom:1px solid var(--line); margin-bottom:32px;}
+  .contact-info-block:last-child{border-bottom:none;}
+  .contact-info-block .panel-tag{margin-bottom:10px; font-family:var(--mono); font-size:0.72rem; letter-spacing:0.06em; color:var(--signal);}
+  .contact-info-block a, .contact-info-block p{color:var(--paper); font-size:1rem;}
+  .contact-info-block p{color:var(--sage); margin-top:6px; font-size:0.9rem; line-height:1.6;}
+  .form-status{font-family:var(--mono); font-size:0.82rem; margin-top:8px; min-height:1.2em;}
+  .form-status.success{color:var(--neon);}
+
+  footer{padding:64px 0 48px;}
+  .footer-top{display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:40px; padding-bottom:48px; border-bottom:1px solid var(--line);}
+  .footer-brand .logo{margin-bottom:14px;}
+  .footer-brand p{color:var(--sage); font-size:0.88rem; max-width:280px; line-height:1.6;}
+  .footer-cols{display:flex; gap:64px;}
+  .footer-col h4{font-family:var(--mono); font-size:0.72rem; color:var(--sage); letter-spacing:0.06em; margin-bottom:18px; text-transform:uppercase;}
+  .footer-col a{display:block; font-size:0.9rem; color:var(--paper); margin-bottom:12px; transition:color 0.2s ease;}
+  .footer-col a:hover{color:var(--neon);}
+  .footer-bottom{display:flex; justify-content:space-between; align-items:center; padding-top:32px; font-family:var(--mono); font-size:0.74rem; color:var(--sage-dim); flex-wrap:wrap; gap:16px;}
+
+  @media (max-width: 900px){
+    .nav-links{display:none;}
+    .page-header{padding:140px 0 60px;}
+    .contact-grid{grid-template-columns:1fr; gap:48px;}
+    .contact-tabs{flex-wrap:wrap;}
+    .section-pad{padding:80px 0;}
+    .footer-top{flex-direction:column;}
+    .footer-cols{gap:40px;}
+    .wrap{padding:0 20px;}
+    .nav-inner{padding:16px 20px;}
+  }
+</style>
+</head>
+<body>
+
+<nav id="site-nav">
+  <div class="nav-inner">
+    <a href="index.html" class="logo"><span class="logo-mark"></span>REFURBICX</a>
+    <div class="nav-links">
+      <a href="how-it-works.html">How it works</a>
+      <a href="for-business.html">For business</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <a href="contact.html" class="nav-cta">RECYCLE MY TECH →</a>
+  </div>
+</nav>
+
+<header class="page-header">
+  <div class="wrap">
+    <div class="breadcrumb"><a href="index.html">Home</a> / Contact</div>
+    <div class="eyebrow">Get in touch</div>
+    <h1>Give your devices a second life, or request a business quote.</h1>
+    <p class="hero-sub">Whether it's one drawer of old phones or a fleet of three hundred laptops, tell us a bit about it and we'll follow up.</p>
+  </div>
+</header>
+
+<section class="section-pad">
+  <div class="wrap">
+
+    <div class="contact-tabs">
+      <button class="contact-tab active" data-target="consumer-panel">Give my devices a new life</button>
+      <button class="contact-tab" data-target="business-panel">Request a quote</button>
+    </div>
+
+    <!-- CONSUMER PANEL -->
+    <div class="contact-panel active" id="consumer-panel">
+      <div class="contact-grid">
+        <form class="contact-form reveal" id="consumer-form">
+          <div class="form-group">
+            <label for="c-name">Name</label>
+            <input type="text" id="c-name" name="name" required placeholder="Your full name">
+          </div>
+          <div class="form-group">
+            <label for="c-email">Email</label>
+            <input type="email" id="c-email" name="email" required placeholder="you@example.com">
+          </div>
+          <div class="form-group">
+            <label for="c-volume">Roughly how many devices?</label>
+            <select id="c-volume" name="volume">
+              <option value="1-2">1–2</option>
+              <option value="3-10">3–10</option>
+              <option value="10+">More than 10</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="c-message">What are you sending in?</label>
+            <textarea id="c-message" name="message" placeholder="Phones, laptops, chargers, etc. — and your general location, if you know of a drop-off nearby."></textarea>
+          </div>
+          <button type="submit" class="submit-btn">Give my devices a new life</button>
+          <div class="form-status" id="consumer-status"></div>
+        </form>
+
+        <div class="reveal">
+          <div class="contact-info-block">
+            <div class="panel-tag">EMAIL</div>
+            <a href="mailto:hello@refurbicx.com">refurbicx@outlook.com</a>
+            <p>For general questions about drop-off, mail-in kits, or what happens to your device.</p>
+          </div>
+          <div class="contact-info-block">
+            <div class="panel-tag">WHAT TO EXPECT</div>
+            <p style="color:var(--paper);">We're early-stage and a small team right now — expect a reply within 2–3 business days as we build out drop-off options in new areas.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BUSINESS PANEL -->
+    <div class="contact-panel" id="business-panel">
+      <div class="contact-grid">
+        <form class="contact-form reveal" id="business-form">
+          <div class="form-group">
+            <label for="b-name">Name</label>
+            <input type="text" id="b-name" name="name" required placeholder="Your full name">
+          </div>
+          <div class="form-group">
+            <label for="b-company">Company</label>
+            <input type="text" id="b-company" name="company" required placeholder="Company name">
+          </div>
+          <div class="form-group">
+            <label for="b-email">Work email</label>
+            <input type="email" id="b-email" name="email" required placeholder="you@company.com">
+          </div>
+          <div class="form-group">
+            <label for="b-volume">Approximate fleet size</label>
+            <select id="b-volume" name="volume">
+              <option value="1-50">1–50 devices</option>
+              <option value="51-500">51–500 devices</option>
+              <option value="500+">500+ devices</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="b-tier">Engagement type</label>
+            <select id="b-tier" name="tier">
+              <option value="one-time">One-time cleanout</option>
+              <option value="ongoing">Ongoing / recurring disposition</option>
+              <option value="enterprise">Enterprise managed program</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="b-message">Anything else we should know</label>
+            <textarea id="b-message" name="message" placeholder="Device types, timeline, location, reporting needs — whatever's useful."></textarea>
+          </div>
+          <button type="submit" class="submit-btn business">Request a quote</button>
+          <div class="form-status" id="business-status"></div>
+        </form>
+
+        <div class="reveal">
+          <div class="contact-info-block">
+            <div class="panel-tag">FOR BUSINESS</div>
+            <a href="mailto:business@refurbicx.com">refurbicx@outlook.com</a>
+            <p>Fleet refreshes, bulk IT asset disposition, and enterprise reporting needs.</p>
+          </div>
+          <div class="contact-info-block">
+            <div class="panel-tag">RESPONSE TIME</div>
+            <p style="color:var(--paper);">Business quote requests are prioritized — expect a reply within 1–2 business days with next steps.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="index.html" class="logo"><span class="logo-mark"></span>REFURBICX</a>
+        <p>Taking tech from trash to treasure, one device at a time.</p>
+      </div>
+      <div class="footer-cols">
+        <div class="footer-col">
+          <h4>Site</h4>
+          <a href="how-it-works.html">How it works</a>
+          <a href="for-business.html">For business</a>
+          <a href="about.html">About</a>
+          <a href="contact.html">Contact</a>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <a href="mailto:hello@refurbicx.com">refurbicx@outlook.com</a>
+          <a href="contact.html">Recycle My Tech</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 REFURBICX</span>
+      <span>TAKING TECH FROM TRASH TO TREASURE</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        entry.target.classList.add('visible');
+        obs.unobserve(entry.target);
+      }
+    });
+  }, {threshold: 0.15});
+  reveals.forEach(el => obs.observe(el));
+
+  const nav = document.getElementById('site-nav');
+  let lastScroll = 0;
+  window.addEventListener('scroll', () => {
+    const current = window.scrollY;
+    if(current > lastScroll && current > 120){
+      nav.classList.add('nav-hidden');
+    } else {
+      nav.classList.remove('nav-hidden');
+    }
+    lastScroll = current;
+  }, {passive:true});
+
+  // tab switching
+  const tabs = document.querySelectorAll('.contact-tab');
+  const panels = document.querySelectorAll('.contact-panel');
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabs.forEach(t => t.classList.remove('active'));
+      panels.forEach(p => p.classList.remove('active'));
+      tab.classList.add('active');
+      document.getElementById(tab.getAttribute('data-target')).classList.add('active');
+    });
+  });
+
+  // form handling — front-end only for now
+  // Wire these up to Formspree, Netlify Forms, or your own backend before launch.
+  document.getElementById('consumer-form').addEventListener('submit', function(e){
+    e.preventDefault();
+    const status = document.getElementById('consumer-status');
+    status.textContent = "Thanks — we've got your message and will follow up soon.";
+    status.classList.add('success');
+    this.reset();
+  });
+  document.getElementById('business-form').addEventListener('submit', function(e){
+    e.preventDefault();
+    const status = document.getElementById('business-status');
+    status.textContent = "Thanks — we've got your quote request and will follow up soon.";
+    status.classList.add('success');
+    this.reset();
+  });
+</script>
+
+</body>
+</html>

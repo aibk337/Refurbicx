@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Business — Refurbicx - Taking Tech from Trash to Treasure</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Aldrich&family=Audiowide&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --black: #0A0E0B;
+    --panel: #141C16;
+    --panel-2: #1B2620;
+    --paper: #F5F2EA;
+    --paper-dim: #EAE6DA;
+    --sage: #7A8471;
+    --sage-dim: #4F564A;
+    --signal: #C8DC3C;
+    --neon: #39FF6A;
+    --copper: #B85C38;
+    --circuit-blue: #4FC3D9;
+    --line: rgba(245,242,234,0.14);
+    --line-strong: rgba(245,242,234,0.28);
+
+    --display: 'Aldrich', sans-serif;
+    --logo-font: 'Audiowide', sans-serif;
+    --body: 'Inter', sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{background:var(--black); color:var(--paper); font-family:var(--body); overflow-x:hidden;}
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; scroll-behavior:auto !important;}
+  }
+  a{color:inherit; text-decoration:none;}
+  ::selection{background:var(--neon); color:var(--black);}
+  :focus-visible{outline:2px solid var(--neon); outline-offset:3px;}
+  .wrap{max-width:1280px; margin:0 auto; padding:0 32px;}
+
+  nav{
+    position:fixed; top:0; left:0; right:0; z-index:100;
+    background:rgba(10,14,11,0.85); backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+    transition:transform 0.35s ease;
+  }
+  nav.nav-hidden{transform:translateY(-100%);}
+  .nav-inner{display:flex; align-items:center; justify-content:space-between; padding:18px 32px; max-width:1280px; margin:0 auto;}
+  .logo{font-family:var(--logo-font); font-weight:400; font-size:1.05rem; display:flex; align-items:center; gap:10px; color:var(--neon); text-shadow:0 0 14px rgba(57,255,106,0.35);}
+  .logo-mark{width:9px; height:9px; background:var(--neon); border-radius:1px; box-shadow:0 0 10px rgba(57,255,106,0.7);}
+  .nav-links{display:flex; gap:36px; font-size:0.88rem; color:var(--sage);}
+  .nav-links a{transition:color 0.2s ease; position:relative; padding-bottom:4px;}
+  .nav-links a:hover{color:var(--paper);}
+  .nav-links a::after{content:''; position:absolute; left:0; bottom:0; width:0; height:1px; background:var(--neon); transition:width 0.25s ease;}
+  .nav-links a:hover::after{width:100%;}
+  .nav-cta{font-family:var(--mono); font-size:0.76rem; border:1px solid var(--line-strong); padding:9px 16px; border-radius:3px; transition:all 0.2s ease;}
+  .nav-cta:hover{border-color:var(--neon); background:rgba(57,255,106,0.08); color:var(--neon);}
+
+  .page-header.b2b-hero{background:var(--panel); border-bottom:1px solid var(--line); padding:180px 0 0;}
+  .page-header h1{font-size:clamp(2rem, 3.8vw, 3rem); max-width:760px; line-height:1.25;}
+  .page-header .hero-sub{margin-top:24px;}
+  .breadcrumb{font-family:var(--mono); font-size:0.74rem; color:var(--sage); margin-bottom:24px; display:flex; align-items:center; gap:8px;}
+  .breadcrumb a:hover{color:var(--neon);}
+  .eyebrow{font-family:var(--mono); font-size:0.78rem; color:var(--signal); letter-spacing:0.08em; text-transform:uppercase; display:flex; align-items:center; gap:10px; margin-bottom:28px;}
+  .eyebrow::before{content:''; width:24px; height:1px; background:var(--signal);}
+  h1{font-family:var(--display); font-weight:400; letter-spacing:0.01em;}
+  .hero-sub{font-size:1.08rem; line-height:1.65; color:var(--sage); max-width:520px;}
+  .hero-actions{margin-top:36px;}
+  .btn-primary{background:var(--neon); color:var(--black); font-family:var(--body); font-weight:600; font-size:0.95rem; padding:15px 28px; border-radius:3px; transition:transform 0.2s ease, box-shadow 0.2s ease; display:inline-block;}
+  .btn-primary:hover{transform:translateY(-2px); box-shadow:0 8px 28px rgba(57,255,106,0.3);}
+
+  .b2b-stat-row{display:grid; grid-template-columns:repeat(3,1fr); border-top:1px solid var(--line); margin-top:56px;}
+  .b2b-stat{padding:32px 0; border-right:1px solid var(--line);}
+  .b2b-stat:last-child{border-right:none;}
+  .b2b-stat .stat-value{font-family:var(--mono); font-weight:600; font-size:1.8rem; color:var(--neon);}
+  .b2b-stat .stat-unit{font-size:1.1rem; color:var(--sage);}
+  .b2b-stat .stat-label{margin-top:10px; font-size:0.85rem; color:var(--sage); line-height:1.5; max-width:220px;}
+
+  section{position:relative;}
+  .section-pad{padding:140px 0;}
+  .section-label{font-family:var(--mono); font-size:0.75rem; color:var(--signal); text-transform:uppercase; letter-spacing:0.08em; margin-bottom:18px;}
+  h2{font-family:var(--display); font-weight:400; font-size:clamp(1.7rem, 3vw, 2.4rem); line-height:1.25; max-width:600px; letter-spacing:0.01em;}
+  .section-intro{display:flex; justify-content:space-between; align-items:flex-end; gap:40px; margin-bottom:70px; flex-wrap:wrap;}
+  .section-intro p{color:var(--sage); font-size:1rem; line-height:1.65; max-width:380px;}
+  .reveal{opacity:0; transform:translateY(24px); transition:opacity 0.7s ease, transform 0.7s ease;}
+  .reveal.visible{opacity:1; transform:translateY(0);}
+
+  /* ---------- LEVERAGE FRAMING ---------- */
+  .leverage-row{display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--line); border:1px solid var(--line); border-radius:6px; overflow:hidden; margin-bottom:80px;}
+  .leverage-cell{padding:40px 36px; background:var(--panel-2);}
+  .leverage-cell.old{opacity:0.7;}
+  .leverage-cell .tag{font-family:var(--mono); font-size:0.7rem; letter-spacing:0.06em; margin-bottom:14px;}
+  .leverage-cell.old .tag{color:var(--copper);}
+  .leverage-cell.new .tag{color:var(--neon);}
+  .leverage-cell h4{font-family:var(--display); font-weight:400; font-size:1.2rem; margin-bottom:12px;}
+  .leverage-cell p{color:var(--sage); font-size:0.92rem; line-height:1.6;}
+
+  /* ---------- COMPLIANCE TABLE ---------- */
+  .compliance-table{width:100%; border-collapse:collapse; margin-top:20px;}
+  .compliance-table th, .compliance-table td{text-align:left; padding:18px 20px; border-bottom:1px solid var(--line); font-size:0.92rem;}
+  .compliance-table th{font-family:var(--mono); font-size:0.72rem; color:var(--sage); text-transform:uppercase; letter-spacing:0.05em; font-weight:400;}
+  .compliance-table td:first-child{font-family:var(--display); font-weight:400;}
+  .compliance-table td.yes{color:var(--neon);}
+
+  /* ---------- TIERS ---------- */
+  .tier-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:24px; margin-top:60px;}
+  .tier-card{border:1px solid var(--line); border-radius:4px; padding:36px 28px; background:var(--panel-2); transition:border-color 0.25s ease;}
+  .tier-card.featured{border-color:var(--neon); background:linear-gradient(160deg, var(--panel-2), rgba(57,255,106,0.05));}
+  .tier-card .panel-tag{margin-bottom:14px;}
+  .tier-card h3{font-family:var(--display); font-weight:400; font-size:1.25rem; margin-bottom:14px;}
+  .tier-card p{color:var(--sage); font-size:0.9rem; line-height:1.6; margin-bottom:20px;}
+  .check-list{list-style:none; display:flex; flex-direction:column; gap:13px;}
+  .check-list li{font-size:0.92rem; color:var(--paper); display:flex; gap:12px; align-items:flex-start;}
+  .check-list li::before{content:''; width:6px; height:6px; margin-top:7px; background:var(--neon); flex-shrink:0;}
+  .panel-tag{font-family:var(--mono); font-size:0.72rem; color:var(--signal); letter-spacing:0.06em;}
+
+  .cta-strip{background:var(--panel); padding:90px 0; text-align:center; border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
+  .cta-strip h2{margin:0 auto 16px; max-width:560px; text-align:center;}
+  .cta-strip p.cta-sub{color:var(--sage); max-width:480px; margin:0 auto 36px; font-size:1rem; line-height:1.6;}
+  .cta-strip-row{display:flex; justify-content:center; gap:20px; flex-wrap:wrap;}
+
+  footer{padding:64px 0 48px;}
+  .footer-top{display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:40px; padding-bottom:48px; border-bottom:1px solid var(--line);}
+  .footer-brand .logo{margin-bottom:14px;}
+  .footer-brand p{color:var(--sage); font-size:0.88rem; max-width:280px; line-height:1.6;}
+  .footer-cols{display:flex; gap:64px;}
+  .footer-col h4{font-family:var(--mono); font-size:0.72rem; color:var(--sage); letter-spacing:0.06em; margin-bottom:18px; text-transform:uppercase;}
+  .footer-col a{display:block; font-size:0.9rem; color:var(--paper); margin-bottom:12px; transition:color 0.2s ease;}
+  .footer-col a:hover{color:var(--neon);}
+  .footer-bottom{display:flex; justify-content:space-between; align-items:center; padding-top:32px; font-family:var(--mono); font-size:0.74rem; color:var(--sage-dim); flex-wrap:wrap; gap:16px;}
+
+  @media (max-width: 900px){
+    .nav-links{display:none;}
+    .page-header.b2b-hero{padding:140px 0 0;}
+    .b2b-stat-row{grid-template-columns:1fr;}
+    .b2b-stat{border-right:none; border-bottom:1px solid var(--line);}
+    .b2b-stat:last-child{border-bottom:none;}
+    .leverage-row{grid-template-columns:1fr;}
+    .tier-grid{grid-template-columns:1fr;}
+    .compliance-table{font-size:0.85rem;}
+    .compliance-table th, .compliance-table td{padding:12px 10px;}
+    .section-intro{margin-bottom:48px;}
+    .section-pad{padding:90px 0;}
+    .footer-top{flex-direction:column;}
+    .footer-cols{gap:40px;}
+    .wrap{padding:0 20px;}
+    .nav-inner{padding:16px 20px;}
+  }
+</style>
+</head>
+<body>
+
+<nav id="site-nav">
+  <div class="nav-inner">
+    <a href="index.html" class="logo"><span class="logo-mark"></span>REFURBICX</a>
+    <div class="nav-links">
+      <a href="how-it-works.html">How it works</a>
+      <a href="for-business.html">For business</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <a href="contact.html" class="nav-cta">RECYCLE MY TECH →</a>
+  </div>
+</nav>
+
+<header class="page-header b2b-hero">
+  <div class="wrap">
+    <div class="breadcrumb"><a href="index.html">Home</a> / For business</div>
+    <div class="eyebrow">IT asset disposition</div>
+    <h1>Retiring a fleet isn't a liability. It's leverage.</h1>
+    <p class="hero-sub">Show your customers, investors, and competitors what responsible e-waste disposal actually looks like — backed by certified data destruction and full reporting, not just a checkbox.</p>
+    <div class="hero-actions">
+      <a href="contact.html" class="btn-primary">Request a quote</a>
+    </div>
+
+    <div class="b2b-stat-row">
+      <div class="b2b-stat reveal">
+        <div><span class="stat-value">100</span><span class="stat-unit">%</span></div>
+        <div class="stat-label">Assets tracked with chain-of-custody from pickup to disposition</div>
+      </div>
+      <div class="b2b-stat reveal">
+        <div><span class="stat-value">0</span><span class="stat-unit">units</span></div>
+        <div class="stat-label">Minimum fleet size — we handle single-office cleanouts too</div>
+      </div>
+      <div class="b2b-stat reveal">
+        <div><span class="stat-value">RRR</span></div>
+        <div class="stat-label">Same Reuse / Refurbish / Recycle process, applied at fleet scale</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section class="section-pad">
+  <div class="wrap">
+    <div class="section-intro">
+      <div>
+        <div class="section-label">Reframe</div>
+        <h2>The old way treated disposal as risk management. We treat it as a story worth telling.</h2>
+      </div>
+    </div>
+
+    <div class="leverage-row">
+      <div class="leverage-cell old reveal">
+        <div class="tag">OLD APPROACH</div>
+        <h4>Disposal as liability</h4>
+        <p>Hardware gets quietly shredded by the lowest bidder. Compliance gets a checkbox. No one outside IT ever hears about it — and there's nothing worth telling them anyway.</p>
+      </div>
+      <div class="leverage-cell new reveal">
+        <div class="tag">THE REFURBICX WAY</div>
+        <h4>Disposal as leverage</h4>
+        <p>Hardware gets a real second chance through RRR, with reporting your sustainability team can actually use. Now it's a story — proof your company does this the right way.</p>
+      </div>
+    </div>
+
+    <div class="section-intro">
+      <div>
+        <div class="section-label">Documentation</div>
+        <h2>What you walk away with for every disposal.</h2>
+      </div>
+      <p>Built so your compliance and sustainability teams have what they need without chasing it down after the fact.</p>
+    </div>
+
+    <table class="compliance-table reveal">
+      <thead>
+        <tr>
+          <th>Deliverable</th>
+          <th>Included</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Certificate of data destruction</td>
+          <td class="yes">Yes</td>
+          <td>Per device, on request or by default for enterprise accounts</td>
+        </tr>
+        <tr>
+          <td>Asset-level disposition report</td>
+          <td class="yes">Yes</td>
+          <td>Serial number, condition, and final RRR routing for every unit</td>
+        </tr>
+        <tr>
+          <td>Chain-of-custody tracking</td>
+          <td class="yes">Yes</td>
+          <td>From pickup signature to final resale or material recovery</td>
+        </tr>
+        <tr>
+          <td>ESG / sustainability reporting</td>
+          <td class="yes">Yes</td>
+          <td>Devices diverted and reuse rate, formatted for sustainability reports</td>
+        </tr>
+        <tr>
+          <td>On-site pickup & inventory</td>
+          <td class="yes">Yes</td>
+          <td>For qualifying volumes — ask when you request a quote</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="section-pad" style="background:var(--panel); border-top:1px solid var(--line); border-bottom:1px solid var(--line);">
+  <div class="wrap">
+    <div class="section-intro">
+      <div>
+        <div class="section-label">Engagement options</div>
+        <h2>Scaled to how often you're actually retiring hardware.</h2>
+      </div>
+      <p>Every tier includes certified data destruction and full reporting — the difference is volume and cadence.</p>
+    </div>
+
+    <div class="tier-grid">
+      <div class="tier-card reveal">
+        <div class="panel-tag">ONE-TIME</div>
+        <h3>Single cleanout</h3>
+        <p>A one-off pickup for an office move, closure, or fleet refresh. No contract required.</p>
+        <ul class="check-list">
+          <li>Single scheduled pickup</li>
+          <li>Full disposition report</li>
+          <li>Certificate of data destruction</li>
+        </ul>
+      </div>
+      <div class="tier-card featured reveal">
+        <div class="panel-tag">ONGOING</div>
+        <h3>Recurring disposition</h3>
+        <p>For businesses retiring hardware on a regular refresh cycle. Scheduled pickups, standing reporting.</p>
+        <ul class="check-list">
+          <li>Recurring pickup schedule</li>
+          <li>Dedicated account contact</li>
+          <li>Quarterly ESG summary</li>
+        </ul>
+      </div>
+      <div class="tier-card reveal">
+        <div class="panel-tag">ENTERPRISE</div>
+        <h3>Managed program</h3>
+        <p>For large or multi-site fleets. Custom SLAs, on-site inventory, and integration with your asset management system.</p>
+        <ul class="check-list">
+          <li>Multi-site coordination</li>
+          <li>Custom SLA & reporting cadence</li>
+          <li>Asset system integration</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-strip" id="cta">
+  <div class="wrap">
+    <div class="section-label" style="justify-content:center; display:flex;">Talk to us</div>
+    <h2>Tell us about your fleet and we'll put together a disposition plan.</h2>
+    <div class="cta-strip-row">
+      <a href="contact.html" class="btn-primary">Request a quote</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="index.html" class="logo"><span class="logo-mark"></span>REFURBICX</a>
+        <p>Taking tech from trash to treasure, one device at a time.</p>
+      </div>
+      <div class="footer-cols">
+        <div class="footer-col">
+          <h4>Site</h4>
+          <a href="how-it-works.html">How it works</a>
+          <a href="for-business.html">For business</a>
+          <a href="about.html">About</a>
+          <a href="contact.html">Contact</a>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <a href="mailto:hello@refurbicx.com">refurbicx@outlook.com</a>
+          <a href="contact.html">Recycle My Tech</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 REFURBICX</span>
+      <span>TAKING TECH FROM TRASH TO TREASURE</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        entry.target.classList.add('visible');
+        obs.unobserve(entry.target);
+      }
+    });
+  }, {threshold: 0.15});
+  reveals.forEach(el => obs.observe(el));
+
+  const nav = document.getElementById('site-nav');
+  let lastScroll = 0;
+  window.addEventListener('scroll', () => {
+    const current = window.scrollY;
+    if(current > lastScroll && current > 120){
+      nav.classList.add('nav-hidden');
+    } else {
+      nav.classList.remove('nav-hidden');
+    }
+    lastScroll = current;
+  }, {passive:true});
+</script>
+
+</body>
+</html>

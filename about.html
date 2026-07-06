@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Our Story — Refurbicx - Taking Tech from Trash to Treasure</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Aldrich&family=Audiowide&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --black: #0A0E0B;
+    --panel: #141C16;
+    --panel-2: #1B2620;
+    --paper: #F5F2EA;
+    --paper-dim: #EAE6DA;
+    --sage: #7A8471;
+    --sage-dim: #4F564A;
+    --signal: #C8DC3C;
+    --neon: #39FF6A;
+    --copper: #B85C38;
+    --circuit-blue: #4FC3D9;
+    --line: rgba(245,242,234,0.14);
+    --line-strong: rgba(245,242,234,0.28);
+
+    --display: 'Aldrich', sans-serif;
+    --logo-font: 'Audiowide', sans-serif;
+    --body: 'Inter', sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{background:var(--black); color:var(--paper); font-family:var(--body); overflow-x:hidden;}
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; scroll-behavior:auto !important;}
+  }
+  a{color:inherit; text-decoration:none;}
+  ::selection{background:var(--neon); color:var(--black);}
+  :focus-visible{outline:2px solid var(--neon); outline-offset:3px;}
+  .wrap{max-width:1280px; margin:0 auto; padding:0 32px;}
+
+  /* ---------- NAV ---------- */
+  nav{
+    position:fixed; top:0; left:0; right:0; z-index:100;
+    background:rgba(10,14,11,0.85); backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+    transition:transform 0.35s ease;
+  }
+  nav.nav-hidden{transform:translateY(-100%);}
+  .nav-inner{display:flex; align-items:center; justify-content:space-between; padding:18px 32px; max-width:1280px; margin:0 auto;}
+  .logo{
+    font-family:var(--logo-font); font-weight:400; font-size:1.05rem;
+    display:flex; align-items:center; gap:10px;
+    color:var(--neon); text-shadow:0 0 14px rgba(57,255,106,0.35);
+  }
+  .logo-mark{width:9px; height:9px; background:var(--neon); border-radius:1px; box-shadow:0 0 10px rgba(57,255,106,0.7);}
+  .nav-links{display:flex; gap:36px; font-size:0.88rem; color:var(--sage);}
+  .nav-links a{transition:color 0.2s ease; position:relative; padding-bottom:4px;}
+  .nav-links a:hover{color:var(--paper);}
+  .nav-links a::after{content:''; position:absolute; left:0; bottom:0; width:0; height:1px; background:var(--neon); transition:width 0.25s ease;}
+  .nav-links a:hover::after{width:100%;}
+  .nav-cta{font-family:var(--mono); font-size:0.76rem; border:1px solid var(--line-strong); padding:9px 16px; border-radius:3px; transition:all 0.2s ease;}
+  .nav-cta:hover{border-color:var(--neon); background:rgba(57,255,106,0.08); color:var(--neon);}
+
+  /* ---------- PAGE HEADER ---------- */
+  .page-header{padding:180px 0 100px; border-bottom:1px solid var(--line);}
+  .page-header h1{font-size:clamp(2rem, 3.8vw, 3rem); max-width:760px; line-height:1.25;}
+  .page-header .hero-sub{margin-top:24px;}
+  .breadcrumb{font-family:var(--mono); font-size:0.74rem; color:var(--sage); margin-bottom:24px; display:flex; align-items:center; gap:8px;}
+  .breadcrumb a:hover{color:var(--neon);}
+  .eyebrow{font-family:var(--mono); font-size:0.78rem; color:var(--signal); letter-spacing:0.08em; text-transform:uppercase; display:flex; align-items:center; gap:10px; margin-bottom:28px;}
+  .eyebrow::before{content:''; width:24px; height:1px; background:var(--signal);}
+  h1{font-family:var(--display); font-weight:400; letter-spacing:0.01em;}
+  .hero-sub{font-size:1.08rem; line-height:1.65; color:var(--sage); max-width:480px;}
+
+  section{position:relative;}
+  .section-pad{padding:140px 0;}
+  .section-label{font-family:var(--mono); font-size:0.75rem; color:var(--signal); text-transform:uppercase; letter-spacing:0.08em; margin-bottom:18px;}
+  h2{font-family:var(--display); font-weight:400; font-size:clamp(1.7rem, 3vw, 2.4rem); line-height:1.25; max-width:600px; letter-spacing:0.01em;}
+  .section-intro{display:flex; justify-content:space-between; align-items:flex-end; gap:40px; margin-bottom:70px; flex-wrap:wrap;}
+  .section-intro p{color:var(--sage); font-size:1rem; line-height:1.65; max-width:380px;}
+  .reveal{opacity:0; transform:translateY(24px); transition:opacity 0.7s ease, transform 0.7s ease;}
+  .reveal.visible{opacity:1; transform:translateY(0);}
+
+  /* ---------- FOUNDER STORY ---------- */
+  .founder-block{
+    display:grid; grid-template-columns:300px 1fr; gap:64px; align-items:start;
+  }
+  .founder-photo{
+    width:100%; aspect-ratio:3/4; border-radius:6px; overflow:hidden;
+    border:1px solid var(--line); position:relative;
+    background:linear-gradient(160deg, var(--panel-2), var(--panel));
+    display:flex; align-items:center; justify-content:center;
+  }
+  .founder-photo svg{width:55%; opacity:0.5;}
+  .founder-photo .photo-label{
+    position:absolute; bottom:16px; left:16px; right:16px;
+    font-family:var(--mono); font-size:0.68rem; color:var(--sage);
+    letter-spacing:0.04em;
+  }
+  .founder-name{
+    margin-top:20px; font-family:var(--display); font-size:1.1rem; color:var(--paper);
+  }
+  .founder-title{font-family:var(--mono); font-size:0.78rem; color:var(--signal); margin-top:6px;}
+  .founder-text p{color:var(--sage); line-height:1.85; font-size:1.02rem; margin-bottom:24px;}
+  .founder-text p:first-of-type{
+    font-size:1.15rem; color:var(--paper-dim); line-height:1.7;
+  }
+  .founder-text strong{color:var(--paper); font-weight:600;}
+  .pull-stat{
+    margin:36px 0; padding:24px 28px; border-left:2px solid var(--neon);
+    background:var(--panel-2); border-radius:0 4px 4px 0;
+  }
+  .pull-stat .stat-big{
+    font-family:var(--mono); font-size:1.8rem; color:var(--neon); font-weight:600;
+  }
+  .pull-stat .stat-sub{color:var(--sage); font-size:0.9rem; margin-top:4px;}
+  .founder-sig{
+    margin-top:40px; font-family:var(--mono); font-size:0.85rem; color:var(--paper);
+  }
+  .founder-sig span{color:var(--sage); display:block; font-size:0.78rem; margin-top:4px;}
+
+  /* ---------- VALUES ---------- */
+  .values-grid{display:grid; grid-template-columns:repeat(3, 1fr); gap:1px; background:var(--line); border:1px solid var(--line);}
+  .value-cell{background:var(--panel); padding:36px 28px;}
+  .value-cell h4{font-family:var(--display); font-weight:400; font-size:1.1rem; margin:12px 0 12px;}
+  .value-cell p{color:var(--sage); font-size:0.9rem; line-height:1.6;}
+
+  .cta-strip{background:var(--panel); padding:90px 0; text-align:center; border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
+  .cta-strip h2{margin:0 auto 16px; max-width:560px; text-align:center;}
+  .cta-strip p.cta-sub{color:var(--sage); max-width:480px; margin:0 auto 36px; font-size:1rem; line-height:1.6;}
+  .cta-strip-row{display:flex; justify-content:center; gap:20px; flex-wrap:wrap;}
+  .btn-primary{background:var(--neon); color:var(--black); font-family:var(--body); font-weight:600; font-size:0.95rem; padding:15px 28px; border-radius:3px; transition:transform 0.2s ease, box-shadow 0.2s ease; display:inline-block;}
+  .btn-primary:hover{transform:translateY(-2px); box-shadow:0 8px 28px rgba(57,255,106,0.3);}
+  .btn-secondary{border:1px solid var(--line-strong); color:var(--paper); font-family:var(--body); font-weight:600; font-size:0.95rem; padding:14px 26px; border-radius:3px; transition:border-color 0.2s ease, color 0.2s ease; display:inline-block;}
+  .btn-secondary:hover{border-color:var(--copper); color:var(--copper);}
+
+  /* ---------- FOOTER ---------- */
+  footer{padding:64px 0 48px;}
+  .footer-top{display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:40px; padding-bottom:48px; border-bottom:1px solid var(--line);}
+  .footer-brand .logo{margin-bottom:14px;}
+  .footer-brand p{color:var(--sage); font-size:0.88rem; max-width:280px; line-height:1.6;}
+  .footer-cols{display:flex; gap:64px;}
+  .footer-col h4{font-family:var(--mono); font-size:0.72rem; color:var(--sage); letter-spacing:0.06em; margin-bottom:18px; text-transform:uppercase;}
+  .footer-col a{display:block; font-size:0.9rem; color:var(--paper); margin-bottom:12px; transition:color 0.2s ease;}
+  .footer-col a:hover{color:var(--neon);}
+  .footer-bottom{display:flex; justify-content:space-between; align-items:center; padding-top:32px; font-family:var(--mono); font-size:0.74rem; color:var(--sage-dim); flex-wrap:wrap; gap:16px;}
+
+  @media (max-width: 900px){
+    .nav-links{display:none;}
+    .page-header{padding:140px 0 64px;}
+    .founder-block{grid-template-columns:1fr; gap:32px;}
+    .founder-photo{max-width:240px;}
+    .values-grid{grid-template-columns:1fr;}
+    .section-intro{margin-bottom:48px;}
+    .section-pad{padding:90px 0;}
+    .footer-top{flex-direction:column;}
+    .footer-cols{gap:40px;}
+    .wrap{padding:0 20px;}
+    .nav-inner{padding:16px 20px;}
+  }
+</style>
+</head>
+<body>
+
+<nav id="site-nav">
+  <div class="nav-inner">
+    <a href="index.html" class="logo"><span class="logo-mark"></span>REFURBICX</a>
+    <div class="nav-links">
+      <a href="how-it-works.html">How it works</a>
+      <a href="for-business.html">For business</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <a href="contact.html" class="nav-cta">RECYCLE MY TECH →</a>
+  </div>
+</nav>
+
+<header class="page-header">
+  <div class="wrap">
+    <div class="breadcrumb"><a href="index.html">Home</a> / About</div>
+    <div class="eyebrow">Our story</div>
+    <h1>Throwing away a computer is about as crazy as throwing away gold.</h1>
+    <p class="hero-sub">Here's why Refurbicx exists, straight from the person who started it.</p>
+  </div>
+</header>
+
+<section class="section-pad">
+  <div class="wrap">
+    <div class="founder-block">
+      <div>
+        <div class="founder-photo reveal">
+          <svg viewBox="0 0 100 100" fill="none">
+            <circle cx="50" cy="36" r="18" stroke="#7A8471" stroke-width="2"/>
+            <path d="M18 88c0-18 14-30 32-30s32 12 32 30" stroke="#7A8471" stroke-width="2"/>
+          </svg>
+          <div class="photo-label">PHOTO PLACEHOLDER — TO BE REPLACED</div>
+        </div>
+        <div class="founder-name">Aiden</div>
+        <div class="founder-title">FOUNDER, REFURBICX</div>
+      </div>
+
+      <div class="founder-text reveal">
+        <p>This exists because throwing away computers was about as crazy as throwing away gold. Hi, I'm Aiden, a 16-year-old entrepreneur in the U.S. trying to change the game in tech.</p>
+        <p>Most of the tech you buy becomes "obsolete" and gets thrown out. Tech companies have convinced us to keep buying the latest and allegedly greatest — but they never told us how to get rid of our old devices. So most of them end up in the garage, joining the ranks of our other waste in landfills, where they'll sit for centuries. That was the best mindset we had just a few decades ago — insane. This is not how it needs to be. We need to rethink how tech actually gets disposed of.</p>
+        <p>When I was in my early teens, I'd get my hands on computers and functional tech from local recycling centers, friends and family, dumpsters, transfer stations, and even my neighbor's garage can. What surprised me was that almost 80% of the devices I found worked — as soon as I hit the power button. It hit me then: this is a goldmine, a blue ocean of possibility that no one had ever taken a stab at. That's what brings me here now.</p>
+
+        <div class="pull-stat reveal">
+          <div class="stat-big">~$70 billion</div>
+          <div class="stat-sub">in precious metals thrown out every year in e-waste — and the collective value of four decades of discarded electronics sits in the trillions.</div>
+        </div>
+
+        <p>I believe taking part in this e-waste issue unlocks a much bigger message about society — we need to rethink what we call "trash." Electronics are now the fastest-growing waste stream in the world. Literal gold is being thrown out and no one is giving it a second thought.</p>
+        <p>Refurbicx aims to change the game for good — building a north star for the tech giants and showing them the best approach to this ever-growing problem. Using our RRR process and new technologies of our own, like AI and machine learning, we plan to take on the piles of old devices and extract value from each and every one of them. <strong>Nothing will end up in a landfill.</strong> Everything will make its way to a new life, providing value to something entirely different.</p>
+        <p>Our goal isn't to pocket billions of dollars. It's to prove to the world that an environmentally responsible company can turn otherwise-junk into a profitable, beneficial business — for the economy and the planet. This is a global effort, and we plan to lead it.</p>
+        <p>That's my aim with Refurbicx, and how I plan to make it happen.</p>
+
+        <div class="founder-sig">— Aiden
+          <span>Founder, Refurbicx</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section-pad" style="background:var(--panel); border-top:1px solid var(--line); border-bottom:1px solid var(--line);">
+  <div class="wrap">
+    <div class="section-intro">
+      <div>
+        <div class="section-label">What we believe</div>
+        <h2>We're not building another tech company. We're building the a system of oppertunity.</h2>
+      </div>
+      <p>Refurbicx is the system that turns neglect into value. These three ideas are what that system runs on.</p>
+    </div>
+
+    <div class="values-grid">
+      <div class="value-cell reveal">
+        <div class="section-label" style="margin-bottom:0;">PRINCIPLE</div>
+        <h4>Reuse beats recycling.</h4>
+        <p>Recycling recovers materials. Reuse keeps a device's embedded energy, labor, and materials intact. We default to "can this be saved?" before "what can we extract from this?"</p>
+      </div>
+      <div class="value-cell reveal">
+        <div class="section-label" style="margin-bottom:0;">PRINCIPLE</div>
+        <h4>Trust is the actual product.</h4>
+        <p>People won't hand over a device with their data on it unless they trust what happens next. Every intake gets certified data wiping and a paper trail, no exceptions.</p>
+      </div>
+      <div class="value-cell reveal">
+        <div class="section-label" style="margin-bottom:0;">PRINCIPLE</div>
+        <h4>Scale feeds our Success.</h4>
+        <p>One household's drawer isn't enough, and neither is one company's fleet refresh. We're building the pipeline to scale, mathcing the size to meet the world's demand.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-strip" id="cta">
+  <div class="wrap">
+    <div class="section-label" style="justify-content:center; display:flex;">Join the cause</div>
+    <h2>Turn neglection into a network.</h2>
+    <p class="cta-sub">Every device you send our way is one less in a landfill — and one more proof point that this problem is solvable.</p>
+    <div class="cta-strip-row">
+      <a href="contact.html" class="btn-primary">Recycle my tech</a>
+      <a href="for-business.html" class="btn-secondary">Request a business quote</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="index.html" class="logo"><span class="logo-mark"></span>REFURBICX</a>
+        <p>Taking tech from trash to treasure, one device at a time.</p>
+      </div>
+      <div class="footer-cols">
+        <div class="footer-col">
+          <h4>Site</h4>
+          <a href="how-it-works.html">How it works</a>
+          <a href="for-business.html">For business</a>
+          <a href="about.html">About</a>
+          <a href="contact.html">Contact</a>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <a href="mailto:hello@refurbicx.com">refurbicx@outlook.com</a>
+          <a href="contact.html">Recycle My Tech</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 REFURBICX</span>
+      <span>TAKING TECH FROM TRASH TO TREASURE</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        entry.target.classList.add('visible');
+        obs.unobserve(entry.target);
+      }
+    });
+  }, {threshold: 0.15});
+  reveals.forEach(el => obs.observe(el));
+
+  const nav = document.getElementById('site-nav');
+  let lastScroll = 0;
+  window.addEventListener('scroll', () => {
+    const current = window.scrollY;
+    if(current > lastScroll && current > 120){
+      nav.classList.add('nav-hidden');
+    } else {
+      nav.classList.remove('nav-hidden');
+    }
+    lastScroll = current;
+  }, {passive:true});
+</script>
+
+</body>
+</html>
